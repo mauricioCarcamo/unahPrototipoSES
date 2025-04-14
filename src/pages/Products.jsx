@@ -1,7 +1,37 @@
-import { useState } from "react";
-import { Pencil, Trash2, Plus, X } from "lucide-react";
+/* 
+      Swal.fire({
+        title: "Registro editado con exito",
+        icon: "success"
+      });
 
-export default function Products() {
+      Swal.fire({
+        title: "Registro agregado con exito",
+        icon: "success"
+      });
+
+  Swal.fire({
+      title: "Estas seguro que desea eliminar este registro?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setProductos(productos.filter((p) => p.id !== id));
+        Swal.fire({
+          title: "Registro eliminado con exito",
+          icon: "success"
+        });
+      }
+    });
+*/
+
+import { useState } from "react";
+import { Pencil, Trash2, Plus, X, FileText, FilterX } from "lucide-react";
+import { jsPDF } from "jspdf";
+import Swal from 'sweetalert2'
+
+export default function Productos() {
   const [productos, setProductos] = useState([
     { id: 1, nombre: "Laptop", precio: 1200, stock: 5 },
     { id: 2, nombre: "Smartphone", precio: 850, stock: 10 },
@@ -10,6 +40,7 @@ export default function Products() {
   const [form, setForm] = useState({ nombre: "", precio: "", stock: "" });
   const [editandoId, setEditandoId] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [filtro, setFiltro] = useState("");
 
   const abrirModal = (producto = null) => {
     if (producto) {
@@ -34,6 +65,12 @@ export default function Products() {
       setProductos((prev) =>
         prev.map((p) => (p.id === editandoId ? { ...form, id: editandoId } : p))
       );
+
+      Swal.fire({
+        title: "Registro editado con exito",
+        icon: "success"
+      });
+
     } else {
       const nuevo = {
         ...form,
@@ -42,27 +79,95 @@ export default function Products() {
         stock: parseInt(form.stock),
       };
       setProductos([...productos, nuevo]);
+
+      Swal.fire({
+        title: "Registro agregado con exito",
+        icon: "success"
+      });
+
     }
     cerrarModal();
   };
 
   const handleEliminar = (id) => {
-    if (window.confirm("¿Eliminar producto?")) {
-      setProductos(productos.filter((p) => p.id !== id));
-    }
+    Swal.fire({
+      title: "Estas seguro que desea eliminar este registro?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setProductos(productos.filter((p) => p.id !== id));
+        Swal.fire({
+          title: "Registro eliminado con exito",
+          icon: "success"
+        });
+      }
+    });
+  };
+
+  const productosFiltrados = productos.filter((p) =>
+    p.nombre.toLowerCase().includes(filtro.toLowerCase())
+  );
+
+  const generarPDF = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(14);
+    doc.text("Listado de productos", 15, 20);
+
+    const headers = [["Nombre", "Precio", "Stock"]];
+    const rows = productosFiltrados.map((p) => [p.nombre, `$${p.precio}`, p.stock.toString()]);
+
+    doc.autoTable({
+      head: headers,
+      body: rows,
+      startY: 30,
+    });
+
+    doc.save("productos.pdf");
   };
 
   return (
     <div className="px-6 py-8">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">Gestión de productos</h2>
-        <button
-          onClick={() => abrirModal()}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          <Plus className="w-5 h-5" />
-          Agregar producto
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={generarPDF}
+            className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+          >
+            <FileText className="w-5 h-5" />
+            PDF
+          </button>
+          <button
+            onClick={() => abrirModal()}
+            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          >
+            <Plus className="w-5 h-5" />
+            Agregar producto
+          </button>
+        </div>
+      </div>
+
+      {/* Filtro */}
+      <div className="mb-4 flex gap-2 items-center">
+        <input
+          type="text"
+          placeholder="Buscar por nombre..."
+          value={filtro}
+          onChange={(e) => setFiltro(e.target.value)}
+          className="border rounded px-3 py-2 w-64"
+        />
+        {filtro && (
+          <button
+            onClick={() => setFiltro("")}
+            className="text-gray-500 hover:text-red-600 transition"
+            title="Limpiar filtro"
+          >
+            <FilterX className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Tabla */}
@@ -77,7 +182,7 @@ export default function Products() {
             </tr>
           </thead>
           <tbody>
-            {productos.map((producto) => (
+            {productosFiltrados.map((producto) => (
               <tr key={producto.id} className="border-t">
                 <td className="px-4 py-2">{producto.nombre}</td>
                 <td className="px-4 py-2">${producto.precio}</td>
@@ -100,10 +205,10 @@ export default function Products() {
                 </td>
               </tr>
             ))}
-            {productos.length === 0 && (
+            {productosFiltrados.length === 0 && (
               <tr>
                 <td colSpan="4" className="text-center py-4 text-gray-500">
-                  No hay productos registrados.
+                  No hay productos que coincidan.
                 </td>
               </tr>
             )}
