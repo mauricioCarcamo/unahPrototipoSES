@@ -50,9 +50,8 @@ export default function Sidebar() {
 
                 <li>
                     <NavLink
-                        to="products"
                         onClick={() => toggleMenu("Products")}
-                        className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 ${isActive ? "bg-gray-700 font-semibold" : ""}`}
+                        className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-}`}
                     >
                         <div className="flex gap-2 items-center px-2 py-2">
                             <Box size={18} />
@@ -84,7 +83,7 @@ export default function Sidebar() {
                                     <ul className="ml-4 mt-1 space-y-1 text-sm">
                                         <li>
                                             <NavLink
-                                                to="products"
+                                                to="products/collections"
                                                 className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
                                             >
                                                 <div className="flex gap-2 items-center px-2 py-2">
@@ -94,10 +93,25 @@ export default function Sidebar() {
 
                                         </li>
                                         <li>
-                                            <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Featured</a>
+                                            <NavLink
+                                                to="products/featured"
+                                                className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                            >
+                                                <div className="flex gap-2 items-center px-2 py-2">
+                                                    <span>Featured</span>
+                                                </div>
+                                            </NavLink>
+
                                         </li>
                                         <li>
-                                            <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Clearance</a>
+                                            <NavLink
+                                                to="products/clereance"
+                                                className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                            >
+                                                <div className="flex gap-2 items-center px-2 py-2">
+                                                    <span>Clereance</span>
+                                                </div>
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 )}
@@ -106,16 +120,21 @@ export default function Sidebar() {
                             {/* 
                 //#region * Product Details
                 */}
-                            <li>
+                            {/*                             <li>
                                 <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Product Details</a>
-                            </li>
+                            </li> */}
 
                             {/* 
                 //#region * Compare Products
                 */}
-                            <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Compare Products</a>
-                            </li>
+                            <NavLink
+                                to="products/compare"
+                                className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                            >
+                                <div className="flex gap-2 items-center px-2 py-2">
+                                    <span>Compare Products</span>
+                                </div>
+                            </NavLink>
 
                         </ul>
                     )}
@@ -141,16 +160,44 @@ export default function Sidebar() {
                     {openMenus["Cart"] && (
                         <ul className="ml-4 mt-1 space-y-1 text-sm">
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Order Summary</a>
+                                <NavLink
+                                    to="cart/summary"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Order Summary</span>
+                                    </div>
+                                </NavLink>
                             </li>
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Shipping Method</a>
+                                <NavLink
+                                    to="cart/shipping-methods"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Shipping Method</span>
+                                    </div>
+                                </NavLink>
                             </li>
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Payments Method</a>
+                                <NavLink
+                                    to="cart/payment-methods"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Payments Method</span>
+                                    </div>
+                                </NavLink>
                             </li>
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Shipping</a>
+                                {/*                                 <NavLink
+                                    to="cart/shipping"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Shipping</span>
+                                    </div>
+                                </NavLink> */}
                             </li>
                         </ul>
                     )}
@@ -174,9 +221,66 @@ export default function Sidebar() {
                     {openMenus["Account"] && (
                         <ul className="ml-4 mt-1 space-y-1 text-sm">
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Profile</a>
+                                <NavLink
+                                    to="profile"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Profiles</span>
+                                    </div>
+                                </NavLink>
                             </li>
                             <li>
+                                <NavLink
+                                    to="account/payment-methods"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Payment Methods</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="account/password-change"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Password</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="account/saved-addresses"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Saved Addresses</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="account/order-history"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Order History</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="account/gift-cards"
+                                    className={({ isActive }) => `flex  justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `}
+                                >
+                                    <div className="flex gap-2 items-center px-2 py-2">
+                                        <span>Gift Cards</span>
+                                    </div>
+                                </NavLink>
+                            </li>
+                            {/*                             <li>
                                 <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Payment Methods</a>
                             </li>
                             <li>
@@ -190,7 +294,7 @@ export default function Sidebar() {
                             </li>
                             <li>
                                 <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700">Gift Cards</a>
-                            </li>
+                            </li> */}
                         </ul>
                     )}
                 </li>
@@ -214,35 +318,35 @@ export default function Sidebar() {
                     {openMenus["More"] && (
                         <ul className="ml-4 mt-1 space-y-1 text-sm">
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
+                                <a href="https://www.blogger.com/about/?bpli=1" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
                                     <Rss size={16} />
                                     <span>Blog</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
+                                <a href="https://www.helpdesk.com/#" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
                                     <CircleHelp size={16} />
                                     <span>Support Desk</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
+                                <a href="https://www.facebook.com/" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
                                     <Facebook size={16} />
                                     <span>Facebook</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
+                                <a href="https://x.com/?lang=es" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
                                     <Twitter size={16} />
                                     <span>Twitter</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="#" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
+                                <a href="https://www.instagram.com/" className="block px-2 py-1 rounded hover:bg-gray-700 transition flex items-center gap-2">
                                     <Instagram size={16} />
                                     <span>Instagram</span>
                                 </a>
