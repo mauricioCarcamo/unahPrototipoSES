@@ -37,7 +37,7 @@ export default function CompareProducts() {
       <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
         <h1 className="text-2xl font-bold">Comparación de Aires Acondicionados</h1>
 
-        <div className="flex items-center gap-2 w-full sm:w-auto">
+        <div className="flex items-center gap-2 w-full sm:w-auto hidden">
           <button
             onClick={exportarPDF}
             className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center gap-2"

@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { MapPin, Trash2, Plus } from "lucide-react";
+import { MapPin, Trash2, Plus, FileDown } from "lucide-react";
 import Swal from 'sweetalert2'
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 
 export default function SavedAddresses() {
@@ -56,24 +58,51 @@ export default function SavedAddresses() {
   };
 
   const eliminarDireccion = (id) => {
-      // ! DELETE
-  Swal.fire({
-    title: "Estas seguro que desea eliminar este registro?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",
-    confirmButtonText: "Eliminar"
-  }).then((result) => {
-    setDirecciones((prev) => prev.filter((d) => d.id !== id));
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: "Registro eliminado con exito",
-        icon: "success"
-      });
-    }
-  });
+    // ! DELETE
+    Swal.fire({
+      title: "Estas seguro que desea eliminar este registro?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Eliminar"
+    }).then((result) => {
+      setDirecciones((prev) => prev.filter((d) => d.id !== id));
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Registro eliminado con exito",
+          icon: "success"
+        });
+      }
+    });
 
 
+  };
+
+
+
+  const imprimirDireccionesPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Direcciones Guardadas", 14, 16);
+
+    autoTable(doc, {
+      startY: 20,
+      head: [["Nombre", "Dirección", "Ciudad", "Código Postal", "País"]],
+      body: direcciones.map(d => [
+        d.nombre,
+        d.direccion,
+        d.ciudad,
+        d.codigoPostal,
+        d.pais
+      ]),
+      styles: { fontSize: 11 },
+      headStyles: { fillColor: [34, 197, 94] }, // verde
+      theme: "striped",
+      margin: { left: 14, right: 14 },
+    });
+
+    doc.save("direcciones.pdf");
   };
 
   return (
@@ -81,6 +110,15 @@ export default function SavedAddresses() {
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
         Direcciones de facturación
       </h2>
+      <div className="flex items-center gap-2 w-full sm:w-auto justify-end mb-6">
+        <button
+          onClick={imprimirDireccionesPDF}
+          className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center gap-2"
+        >
+          <FileDown className="w-4 h-4" />
+          PDF
+        </button>
+      </div>
 
       <div className="space-y-4">
         {direcciones.map((d) => (

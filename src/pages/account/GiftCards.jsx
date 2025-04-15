@@ -1,5 +1,9 @@
 import { useState } from "react";
 import Swal from 'sweetalert2'
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import { FileDown } from "lucide-react";
+
 
 
 export default function GiftCards() {
@@ -43,13 +47,45 @@ export default function GiftCards() {
     cerrarModal(); // Cerrar el modal después de agregar
   };
 
+
+
+  const imprimirGiftCardsPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Listado de Gift Cards", 14, 16);
+
+    autoTable(doc, {
+      startY: 20,
+      head: [["Código", "Saldo ($)", "Fecha de Expiración"]],
+      body: giftCards.map(card => [
+        card.codigo,
+        card.saldo.toFixed(2),
+        card.fechaExpiracion,
+      ]),
+      styles: { fontSize: 11 },
+      headStyles: { fillColor: [59, 130, 246] }, // azul
+      theme: "striped",
+      margin: { left: 14, right: 14 },
+    });
+
+    doc.save("gift-cards.pdf");
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
       <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
         Mis Gift Cards
       </h2>
 
-      <div className="flex justify-between mb-6">
+      <div className="flex justify-end mb-6 gap-2">
+        <button
+          onClick={imprimirGiftCardsPDF}
+          className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center gap-2"
+        >
+          <FileDown className="w-4 h-4" />
+          PDF
+        </button>
         <button
           onClick={abrirModal}
           className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"

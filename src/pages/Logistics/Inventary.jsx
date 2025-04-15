@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Plus, Pencil, Trash2, FileDown } from "lucide-react";
 import Swal from 'sweetalert2'
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const inventarioInicial = [
   {
@@ -23,6 +25,8 @@ const inventarioInicial = [
     descripcion: "Zapatos de cuero para vestir",
   },
 ];
+
+
 
 export default function Inventary() {
   const [productos, setProductos] = useState(inventarioInicial);
@@ -118,6 +122,44 @@ export default function Inventary() {
     return cantidad < minimo ? "text-red-600 font-bold" : "text-green-600 font-semibold";
   };
 
+
+
+const exportarProductosPDF = () => {
+  const doc = new jsPDF();
+
+  doc.text("Inventario de Productos", 14, 16);
+
+  autoTable(doc, {
+    startY: 20,
+    head: [
+      ["Nombre", "Cantidad", "Precio ($)", "Mínimo", "Máximo", "Descripción"]
+    ],
+    body: productos.map(p => [
+      p.nombre,
+      p.cantidad,
+      p.precio,
+      p.minimo,
+      p.maximo,
+      p.descripcion
+    ]),
+    styles: {
+      fontSize: 10,
+      cellPadding: 3
+    },
+    headStyles: {
+      fillColor: [33, 150, 243],
+      textColor: 255,
+      halign: "center"
+    },
+    bodyStyles: {
+      valign: "middle"
+    }
+  });
+
+  doc.save("productos.pdf");
+};
+
+
   return (
     <div className="max-w-7xl mx-auto p-6">
       <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
@@ -131,7 +173,7 @@ export default function Inventary() {
             className="border border-gray-300 rounded px-3 py-2 w-full sm:w-64"
           />
           <button
-            // onClick={exportarPDF}
+            onClick={exportarProductosPDF}
             className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center gap-2"
           >
             <FileDown className="w-4 h-4" />

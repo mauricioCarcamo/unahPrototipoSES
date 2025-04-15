@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Eye } from "lucide-react";
+import { Eye, FileDown } from "lucide-react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 export default function OrderHistory() {
   const [ordenes] = useState([
@@ -52,11 +54,69 @@ export default function OrderHistory() {
     }
   };
 
+
+
+const imprimirOrdenesPDF = () => {
+  const doc = new jsPDF();
+  let y = 10;
+
+  doc.setFontSize(16);
+  doc.text("Historial de Órdenes de Compra", 14, y);
+  y += 10;
+
+  ordenes.forEach((orden, index) => {
+    doc.setFontSize(12);
+    doc.text(`Orden: ${orden.id}`, 14, y);
+    doc.text(`Fecha: ${orden.fecha}`, 80, y);
+    doc.text(`Estado: ${orden.estado}`, 140, y);
+    y += 6;
+
+    doc.text(`Total: $${orden.total.toFixed(2)}`, 14, y);
+    y += 4;
+
+    autoTable(doc, {
+      startY: y + 2,
+      head: [["Producto", "Cantidad", "Precio"]],
+      body: orden.productos.map(p => [
+        p.nombre,
+        p.cantidad,
+        `$${p.precio.toFixed(2)}`
+      ]),
+      styles: { fontSize: 10 },
+      theme: "striped",
+      margin: { left: 14 },
+    });
+
+    y = doc.lastAutoTable.finalY + 10;
+
+    // Salto de página si se pasa del límite
+    if (y > 270 && index < ordenes.length - 1) {
+      doc.addPage();
+      y = 10;
+    }
+  });
+
+  doc.save("ordenes.pdf");
+};
+
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
       <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
         Historial de Órdenes
       </h2>
+      {/* 
+      //#region Exportar pdf 
+      // */}
+      <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+        <button
+          onClick={ imprimirOrdenesPDF }
+          className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center gap-2"
+        >
+          <FileDown className="w-4 h-4" />
+          PDF
+        </button>
+      </div>
 
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
         <table className="min-w-full table-auto">
