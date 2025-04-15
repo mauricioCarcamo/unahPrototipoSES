@@ -4,19 +4,19 @@ import { Link } from "react-router-dom";
 import "keen-slider/keen-slider.min.css";
 
 const productosPopulares = [
-  { id: 1, nombre: "Zapatillas Urbanas", imagen: "/img/zapatillas.jpg", precio: 69.99, rating: 4 },
-  { id: 2, nombre: "Reloj Deportivo", imagen: "/img/reloj.jpg", precio: 129.99, rating: 5 },
+  { id: 1, nombre: "Zapatillas Urbanas", imagen: "https://acdn-us.mitiendanube.com/stores/001/749/890/products/img-20240429-wa0084-91c85161426187191417144443144787-1024-1024.jpg", precio: 69.99, rating: 4 },
+  { id: 2, nombre: "Reloj Deportivo", imagen: "https://m.media-amazon.com/images/I/619xstmMPCL._AC_SL1100_.jpg", precio: 129.99, rating: 5 },
 ];
 
 const colecciones = [
-  { id: 1, titulo: "Primavera-Verano", imagen: "/img/coleccion-verano.jpg" },
-  { id: 2, titulo: "Oficina", imagen: "/img/coleccion-oficina.jpg" },
-  { id: 3, titulo: "Deportes", imagen: "/img/coleccion-deporte.jpg" },
+  { id: 1, titulo: "Primavera-Verano", imagen: "https://m.media-amazon.com/images/I/619xstmMPCL._AC_SL1100_.jpg" },
+  { id: 2, titulo: "Oficina", imagen: "https://img.freepik.com/foto-gratis/habitacion-vacia-sillas-escritorios_23-2149008873.jpg?semt=ais_hybrid&w=740" },
+  { id: 3, titulo: "Deportes", imagen: "https://www.udep.edu.pe/hoy/wp-content/uploads/sites/49/2023/01/CUERPO-DE-TEXTO-1920X1080-3-min-1.png" },
 ];
 
 const productosRebaja = [
-  { id: 1, nombre: "Chaqueta Invierno", imagen: "/img/chaqueta.jpg", precioOriginal: 89.99, precioRebajado: 59.99 },
-  { id: 2, nombre: "Gorra Casual", imagen: "/img/gorra.jpg", precioOriginal: 19.99, precioRebajado: 12.99 },
+  { id: 1, nombre: "Chaqueta Invierno", imagen: "https://m.media-amazon.com/images/I/71IXGS39A-L._AC_SL1500_.jpg", precioOriginal: 89.99, precioRebajado: 59.99 },
+  { id: 2, nombre: "Gorra Casual", imagen: "https://static.vecteezy.com/system/resources/previews/008/644/450/non_2x/stylish-brunette-girl-in-gray-cap-casual-street-style-on-winter-day-photo.jpg", precioOriginal: 19.99, precioRebajado: 12.99 },
 ];
 
 function StarRating({ rating }) {

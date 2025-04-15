@@ -7,7 +7,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Profile from './layout/Profile'
-import Products from './pages/Products'
+import Products from './pages/Logistics/Products'
 import Collections from './pages/products/categories/Collections'
 import ProductsPerCollection from './pages/products/categories/ProductsPerCollection'
 import ProductDetail from './pages/products/categories/ProductDetail'
@@ -25,6 +25,8 @@ import GiftCards from './pages/Cart/GiftCards'
 
 import "keen-slider/keen-slider.min.css";
 import UserHome from './pages/UserHome'
+import Clients from './pages/admin/clients'
+import Inventary from './pages/Logistics/Inventary'
 
 
 
@@ -63,11 +65,21 @@ function App() {
               <Route path='saved-addresses' element={ <SavedAddresses /> } />
               <Route path='order-history' element={ <OrderHistory /> } />
               <Route path='gift-cards' element={ <GiftCards /> } />
+            </Route>
+
+            <Route path='admin'>
+              <Route path='clients' element={ <Clients /> } />
+              <Route path='users' element={ <Clients /> } />
+              <Route path='queries' element={ <Clients /> } />
+            </Route>
+
+            <Route path='logistics'>
+              <Route path='inventary' element={ <Inventary /> } />
+              <Route path='orders' element={ <Inventary /> } />
 
 
 
             </Route>
-
 
 
 

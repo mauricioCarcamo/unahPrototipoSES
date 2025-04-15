@@ -12,8 +12,6 @@ const carrito = [
     cantidad: 1,
     precio: 899,
     imagen: "https://i.ebayimg.com/images/g/bnIAAOSwXJpgAZ8c/s-l640.jpg",
-
-
   },
   {
     id: "7",
@@ -21,8 +19,6 @@ const carrito = [
     cantidad: 2,
     precio: 129,
     imagen: "https://kh.jbl.com/dw/image/v2/AAUJ_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw3b9796ab/450BT_black_angle_01-1606x1606px.png?sw=537&sfrm=png",
-
-
   },
 ];
 
