@@ -4,31 +4,31 @@ import { Pencil, Trash2, Plus, FileDown } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-const clientesMock = [
-  { id: 1, nombre: "Juan Pérez", email: "juan@example.com", telefono: "555-1234" },
-  { id: 2, nombre: "María García", email: "maria@example.com", telefono: "555-5678" },
+const ordenesMock = [
+  { id: 1, cliente: "Juan Pérez", producto: "Laptop", cantidad: 1, fecha: "2025-04-10", estado: "Pendiente" },
+  { id: 2, cliente: "María García", producto: "Smartphone", cantidad: 2, fecha: "2025-04-11", estado: "Completada" },
 ];
 
-export default function Clients() {
-  const [clientes, setClientes] = useState(clientesMock);
+export default function Orders() {
+  const [ordenes, setOrdenes] = useState(ordenesMock);
   const [filtro, setFiltro] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form, setForm] = useState({ nombre: "", email: "", telefono: "" });
+  const [form, setForm] = useState({ cliente: "", producto: "", cantidad: 1, fecha: "", estado: "Pendiente" });
   const [editando, setEditando] = useState(null);
 
-  const abrirModal = (cliente = null) => {
-    if (cliente) {
-      setForm(cliente);
-      setEditando(cliente.id);
+  const abrirModal = (orden = null) => {
+    if (orden) {
+      setForm(orden);
+      setEditando(orden.id);
     } else {
-      setForm({ nombre: "", email: "", telefono: "" });
+      setForm({ cliente: "", producto: "", cantidad: 1, fecha: "", estado: "Pendiente" });
       setEditando(null);
     }
     setIsModalOpen(true);
   };
 
   const cerrarModal = () => {
-    setForm({ nombre: "", email: "", telefono: "" });
+    setForm({ cliente: "", producto: "", cantidad: 1, fecha: "", estado: "Pendiente" });
     setIsModalOpen(false);
     setEditando(null);
   };
@@ -36,46 +36,46 @@ export default function Clients() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editando) {
-      setClientes(clientes.map(c => (c.id === editando ? { ...form, id: editando } : c)));
+      setOrdenes(ordenes.map(o => (o.id === editando ? { ...form, id: editando } : o)));
     } else {
-      const nuevoCliente = { ...form, id: Date.now() };
-      setClientes([...clientes, nuevoCliente]);
+      const nuevaOrden = { ...form, id: Date.now() };
+      setOrdenes([...ordenes, nuevaOrden]);
     }
     cerrarModal();
   };
 
-  const eliminarCliente = (id) => {
-    if (confirm("¿Deseas eliminar este cliente?")) {
-      setClientes(clientes.filter(c => c.id !== id));
+  const eliminarOrden = (id) => {
+    if (confirm("¿Deseas eliminar esta orden de compra?")) {
+      setOrdenes(ordenes.filter(o => o.id !== id));
     }
   };
 
   const exportarPDF = () => {
     const doc = new jsPDF();
-    doc.text("Listado de Clientes", 14, 16);
+    doc.text("Listado de Órdenes de Compra", 14, 16);
     autoTable(doc, {
       startY: 20,
-      head: [["Nombre", "Email", "Teléfono"]],
-      body: clientesFiltrados.map(c => [c.nombre, c.email, c.telefono]),
+      head: [["Cliente", "Producto", "Cantidad", "Fecha", "Estado"]],
+      body: ordenesFiltradas.map(o => [o.cliente, o.producto, o.cantidad, o.fecha, o.estado]),
     });
-    doc.save("clientes.pdf");
+    doc.save("ordenes_de_compra.pdf");
   };
 
-  const clientesFiltrados = clientes.filter(
-    c =>
-      c.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
-      c.email.toLowerCase().includes(filtro.toLowerCase())
+  const ordenesFiltradas = ordenes.filter(
+    o =>
+      o.cliente.toLowerCase().includes(filtro.toLowerCase()) ||
+      o.producto.toLowerCase().includes(filtro.toLowerCase())
   );
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-        <h1 className="text-2xl font-bold">Clientes</h1>
+        <h1 className="text-2xl font-bold">Órdenes de Compra</h1>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <input
             type="text"
-            placeholder="Buscar cliente..."
+            placeholder="Buscar orden..."
             value={filtro}
             onChange={(e) => setFiltro(e.target.value)}
             className="border border-gray-300 rounded px-3 py-2 w-full sm:w-64"
@@ -101,27 +101,31 @@ export default function Clients() {
         <table className="min-w-full table-auto text-sm">
           <thead className="bg-gray-100 text-gray-600 font-semibold">
             <tr>
-              <th className="px-4 py-3 text-left">Nombre</th>
-              <th className="px-4 py-3 text-left">Email</th>
-              <th className="px-4 py-3 text-left">Teléfono</th>
+              <th className="px-4 py-3 text-left">Cliente</th>
+              <th className="px-4 py-3 text-left">Producto</th>
+              <th className="px-4 py-3 text-left">Cantidad</th>
+              <th className="px-4 py-3 text-left">Fecha</th>
+              <th className="px-4 py-3 text-left">Estado</th>
               <th className="px-4 py-3 text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {clientesFiltrados.map((cliente) => (
-              <tr key={cliente.id} className="border-b hover:bg-gray-50">
-                <td className="px-4 py-3">{cliente.nombre}</td>
-                <td className="px-4 py-3">{cliente.email}</td>
-                <td className="px-4 py-3">{cliente.telefono}</td>
+            {ordenesFiltradas.map((orden) => (
+              <tr key={orden.id} className="border-b hover:bg-gray-50">
+                <td className="px-4 py-3">{orden.cliente}</td>
+                <td className="px-4 py-3">{orden.producto}</td>
+                <td className="px-4 py-3">{orden.cantidad}</td>
+                <td className="px-4 py-3">{orden.fecha}</td>
+                <td className="px-4 py-3">{orden.estado}</td>
                 <td className="px-4 py-3 text-center flex justify-center gap-2">
                   <button
-                    onClick={() => abrirModal(cliente)}
+                    onClick={() => abrirModal(orden)}
                     className="text-blue-600 hover:text-blue-800"
                   >
                     <Pencil className="w-5 h-5" />
                   </button>
                   <button
-                    onClick={() => eliminarCliente(cliente.id)}
+                    onClick={() => eliminarOrden(orden.id)}
                     className="text-red-600 hover:text-red-800"
                   >
                     <Trash2 className="w-5 h-5" />
@@ -129,9 +133,9 @@ export default function Clients() {
                 </td>
               </tr>
             ))}
-            {clientesFiltrados.length === 0 && (
+            {ordenesFiltradas.length === 0 && (
               <tr>
-                <td colSpan="4" className="text-center py-6 text-gray-500">
+                <td colSpan="6" className="text-center py-6 text-gray-500">
                   No se encontraron resultados.
                 </td>
               </tr>
@@ -146,38 +150,61 @@ export default function Clients() {
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md space-y-4">
             <Dialog.Title className="text-lg font-bold">
-              {editando ? "Editar Cliente" : "Nuevo Cliente"}
+              {editando ? "Editar Orden de Compra" : "Nueva Orden de Compra"}
             </Dialog.Title>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium">Nombre</label>
+                <label className="block text-sm font-medium">Cliente</label>
                 <input
                   type="text"
-                  value={form.nombre}
-                  onChange={(e) => setForm({ ...form, nombre: e.target.value })}
+                  value={form.cliente}
+                  onChange={(e) => setForm({ ...form, cliente: e.target.value })}
                   required
                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium">Email</label>
+                <label className="block text-sm font-medium">Producto</label>
                 <input
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  type="text"
+                  value={form.producto}
+                  onChange={(e) => setForm({ ...form, producto: e.target.value })}
                   required
                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium">Teléfono</label>
+                <label className="block text-sm font-medium">Cantidad</label>
                 <input
-                  type="text"
-                  value={form.telefono}
-                  onChange={(e) => setForm({ ...form, telefono: e.target.value })}
+                  type="number"
+                  value={form.cantidad}
+                  onChange={(e) => setForm({ ...form, cantidad: e.target.value })}
                   required
                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium">Fecha</label>
+                <input
+                  type="date"
+                  value={form.fecha}
+                  onChange={(e) => setForm({ ...form, fecha: e.target.value })}
+                  required
+                  className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium">Estado</label>
+                <select
+                  value={form.estado}
+                  onChange={(e) => setForm({ ...form, estado: e.target.value })}
+                  required
+                  className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
+                >
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="Completada">Completada</option>
+                  <option value="Cancelada">Cancelada</option>
+                </select>
               </div>
               <div className="flex justify-end gap-2 mt-4">
                 <button

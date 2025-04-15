@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, FileDown } from "lucide-react";
 
 const inventarioInicial = [
   {
@@ -105,6 +105,13 @@ export default function Inventary() {
             onChange={(e) => setBusqueda(e.target.value)}
             className="border border-gray-300 rounded px-3 py-2 w-full sm:w-64"
           />
+          <button
+            // onClick={exportarPDF}
+            className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center gap-2"
+          >
+            <FileDown className="w-4 h-4" />
+            PDF
+          </button>
           <button
             onClick={() => abrirModal()}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2"

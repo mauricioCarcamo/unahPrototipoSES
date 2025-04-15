@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 const colecciones = [
     {
         id: "tecnologia",
-        nombre: "Tecnología",
-        descripcion: "Lo último en gadgets, laptops y más.",
-        imagen: "https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2022/01/ces-2022-2582123.jpg?tf=3840x",
+        nombre: "Portátil   ",
+        descripcion: "Es ideal para quienes buscan confort sin una instalación fija",
+        imagen: "https://www.jetstereo.com/_next/image?url=https%3A%2F%2Fjet-web.s3.us-west-1.amazonaws.com%2Fimages%2Fcache%2Fcatalog%2Fpublic%2F40b54f5d589904d368bde209ce979409-350x350.webp&w=640&q=75",
     },
     {
         id: "moda",

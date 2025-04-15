@@ -27,6 +27,9 @@ import "keen-slider/keen-slider.min.css";
 import UserHome from './pages/UserHome'
 import Clients from './pages/admin/clients'
 import Inventary from './pages/Logistics/Inventary'
+import Orders from './pages/Logistics/Orders'
+import Users from './pages/admin/Users'
+import Queries from './pages/admin/Queries'
 
 
 
@@ -69,20 +72,14 @@ function App() {
 
             <Route path='admin'>
               <Route path='clients' element={ <Clients /> } />
-              <Route path='users' element={ <Clients /> } />
-              <Route path='queries' element={ <Clients /> } />
+              <Route path='users' element={ <Users /> } />
+              <Route path='queries' element={ <Queries /> } />
             </Route>
 
             <Route path='logistics'>
               <Route path='inventary' element={ <Inventary /> } />
-              <Route path='orders' element={ <Inventary /> } />
-
-
-
+              <Route path='orders' element={ <Orders /> } />
             </Route>
-
-
-
           </Route>
 
           <Route path='login' element={<Login />} ></Route>

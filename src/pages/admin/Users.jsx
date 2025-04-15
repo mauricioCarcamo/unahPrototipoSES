@@ -4,31 +4,31 @@ import { Pencil, Trash2, Plus, FileDown } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-const clientesMock = [
-  { id: 1, nombre: "Juan Pérez", email: "juan@example.com", telefono: "555-1234" },
-  { id: 2, nombre: "María García", email: "maria@example.com", telefono: "555-5678" },
+const usuariosMock = [
+  { id: 1, nombre: "Juan Pérez", email: "juan@example.com", rol: "Admin" },
+  { id: 2, nombre: "María García", email: "maria@example.com", rol: "Usuario" },
 ];
 
-export default function Clients() {
-  const [clientes, setClientes] = useState(clientesMock);
+export default function Users() {
+  const [usuarios, setUsuarios] = useState(usuariosMock);
   const [filtro, setFiltro] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form, setForm] = useState({ nombre: "", email: "", telefono: "" });
+  const [form, setForm] = useState({ nombre: "", email: "", rol: "" });
   const [editando, setEditando] = useState(null);
 
-  const abrirModal = (cliente = null) => {
-    if (cliente) {
-      setForm(cliente);
-      setEditando(cliente.id);
+  const abrirModal = (usuario = null) => {
+    if (usuario) {
+      setForm(usuario);
+      setEditando(usuario.id);
     } else {
-      setForm({ nombre: "", email: "", telefono: "" });
+      setForm({ nombre: "", email: "", rol: "" });
       setEditando(null);
     }
     setIsModalOpen(true);
   };
 
   const cerrarModal = () => {
-    setForm({ nombre: "", email: "", telefono: "" });
+    setForm({ nombre: "", email: "", rol: "" });
     setIsModalOpen(false);
     setEditando(null);
   };
@@ -36,46 +36,46 @@ export default function Clients() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editando) {
-      setClientes(clientes.map(c => (c.id === editando ? { ...form, id: editando } : c)));
+      setUsuarios(usuarios.map(u => (u.id === editando ? { ...form, id: editando } : u)));
     } else {
-      const nuevoCliente = { ...form, id: Date.now() };
-      setClientes([...clientes, nuevoCliente]);
+      const nuevoUsuario = { ...form, id: Date.now() };
+      setUsuarios([...usuarios, nuevoUsuario]);
     }
     cerrarModal();
   };
 
-  const eliminarCliente = (id) => {
-    if (confirm("¿Deseas eliminar este cliente?")) {
-      setClientes(clientes.filter(c => c.id !== id));
+  const eliminarUsuario = (id) => {
+    if (confirm("¿Deseas eliminar este usuario?")) {
+      setUsuarios(usuarios.filter(u => u.id !== id));
     }
   };
 
   const exportarPDF = () => {
     const doc = new jsPDF();
-    doc.text("Listado de Clientes", 14, 16);
+    doc.text("Listado de Usuarios", 14, 16);
     autoTable(doc, {
       startY: 20,
-      head: [["Nombre", "Email", "Teléfono"]],
-      body: clientesFiltrados.map(c => [c.nombre, c.email, c.telefono]),
+      head: [["Nombre", "Email", "Rol"]],
+      body: usuariosFiltrados.map(u => [u.nombre, u.email, u.rol]),
     });
-    doc.save("clientes.pdf");
+    doc.save("usuarios.pdf");
   };
 
-  const clientesFiltrados = clientes.filter(
-    c =>
-      c.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
-      c.email.toLowerCase().includes(filtro.toLowerCase())
+  const usuariosFiltrados = usuarios.filter(
+    u =>
+      u.nombre.toLowerCase().includes(filtro.toLowerCase()) ||
+      u.email.toLowerCase().includes(filtro.toLowerCase())
   );
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-        <h1 className="text-2xl font-bold">Clientes</h1>
+        <h1 className="text-2xl font-bold">Usuarios</h1>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <input
             type="text"
-            placeholder="Buscar cliente..."
+            placeholder="Buscar usuario..."
             value={filtro}
             onChange={(e) => setFiltro(e.target.value)}
             className="border border-gray-300 rounded px-3 py-2 w-full sm:w-64"
@@ -103,25 +103,25 @@ export default function Clients() {
             <tr>
               <th className="px-4 py-3 text-left">Nombre</th>
               <th className="px-4 py-3 text-left">Email</th>
-              <th className="px-4 py-3 text-left">Teléfono</th>
+              <th className="px-4 py-3 text-left">Rol</th>
               <th className="px-4 py-3 text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {clientesFiltrados.map((cliente) => (
-              <tr key={cliente.id} className="border-b hover:bg-gray-50">
-                <td className="px-4 py-3">{cliente.nombre}</td>
-                <td className="px-4 py-3">{cliente.email}</td>
-                <td className="px-4 py-3">{cliente.telefono}</td>
+            {usuariosFiltrados.map((usuario) => (
+              <tr key={usuario.id} className="border-b hover:bg-gray-50">
+                <td className="px-4 py-3">{usuario.nombre}</td>
+                <td className="px-4 py-3">{usuario.email}</td>
+                <td className="px-4 py-3">{usuario.rol}</td>
                 <td className="px-4 py-3 text-center flex justify-center gap-2">
                   <button
-                    onClick={() => abrirModal(cliente)}
+                    onClick={() => abrirModal(usuario)}
                     className="text-blue-600 hover:text-blue-800"
                   >
                     <Pencil className="w-5 h-5" />
                   </button>
                   <button
-                    onClick={() => eliminarCliente(cliente.id)}
+                    onClick={() => eliminarUsuario(usuario.id)}
                     className="text-red-600 hover:text-red-800"
                   >
                     <Trash2 className="w-5 h-5" />
@@ -129,7 +129,7 @@ export default function Clients() {
                 </td>
               </tr>
             ))}
-            {clientesFiltrados.length === 0 && (
+            {usuariosFiltrados.length === 0 && (
               <tr>
                 <td colSpan="4" className="text-center py-6 text-gray-500">
                   No se encontraron resultados.
@@ -146,7 +146,7 @@ export default function Clients() {
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md space-y-4">
             <Dialog.Title className="text-lg font-bold">
-              {editando ? "Editar Cliente" : "Nuevo Cliente"}
+              {editando ? "Editar Usuario" : "Nuevo Usuario"}
             </Dialog.Title>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -170,11 +170,11 @@ export default function Clients() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium">Teléfono</label>
+                <label className="block text-sm font-medium">Rol</label>
                 <input
                   type="text"
-                  value={form.telefono}
-                  onChange={(e) => setForm({ ...form, telefono: e.target.value })}
+                  value={form.rol}
+                  onChange={(e) => setForm({ ...form, rol: e.target.value })}
                   required
                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                 />
