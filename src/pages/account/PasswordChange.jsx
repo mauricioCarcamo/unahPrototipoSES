@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Swal from 'sweetalert2'
+
 
 export default function PasswordChange() {
   const [formulario, setFormulario] = useState({
@@ -25,6 +27,13 @@ export default function PasswordChange() {
     // Aquí enviarías el cambio al backend
     setMensaje({ tipo: "success", texto: "Contraseña actualizada correctamente." });
     setFormulario({ actual: "", nueva: "", confirmar: "" });
+    // ? ADD
+    // ? EDIT
+    Swal.fire({
+      title: "Contraseña cambiada con exito",
+      icon: "success"
+    });
+
   };
 
   return (
@@ -79,11 +88,10 @@ export default function PasswordChange() {
 
         {mensaje && (
           <div
-            className={`text-sm font-medium p-3 rounded-md ${
-              mensaje.tipo === "error"
+            className={`text-sm font-medium p-3 rounded-md ${mensaje.tipo === "error"
                 ? "bg-red-100 text-red-700"
                 : "bg-green-100 text-green-700"
-            }`}
+              }`}
           >
             {mensaje.texto}
           </div>

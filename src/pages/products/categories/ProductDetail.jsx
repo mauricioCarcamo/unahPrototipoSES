@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import Swal from 'sweetalert2'
+
 
 // Simulación de datos
 const productos = [
@@ -14,6 +16,14 @@ const productos = [
         descripcion: "Reduce tu consumo de energía y tu factura de electricidad con un enfriamiento más eficiente. Obtén la comodidad de un rápido enfriamiento con el LG DUAL Inverter Compressor™."}
 ];
 
+const cartAdd = (params) => {
+          // ? ADD
+          Swal.fire({
+            title: params,
+            icon: "success"
+          });
+}
+
 export default function ProductDetail() {
     const { id } = useParams();
     console.log(id)
@@ -23,8 +33,10 @@ export default function ProductDetail() {
 
 
     const agregarAlCarrito = () => {
-        alert(`Agregado ${cantidad} x ${producto?.nombre} al carrito`);
-        // Aquí podrías usar contexto o Redux para manejar el carrito real
+        Swal.fire({
+            title: `Agregado ${cantidad} x ${producto?.nombre} al carrito`,
+            icon: "success"
+          });
     };
 
     if (!producto) return <p className="text-gray-600">Producto no encontrado.</p>;

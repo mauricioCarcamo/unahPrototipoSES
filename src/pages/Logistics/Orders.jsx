@@ -3,6 +3,8 @@ import { Dialog } from "@headlessui/react";
 import { Pencil, Trash2, Plus, FileDown } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import Swal from 'sweetalert2'
+
 
 const ordenesMock = [
   { id: 1, cliente: "Juan Pérez", producto: "Laptop", cantidad: 1, fecha: "2025-04-10", estado: "Pendiente" },
@@ -37,17 +39,40 @@ export default function Orders() {
     e.preventDefault();
     if (editando) {
       setOrdenes(ordenes.map(o => (o.id === editando ? { ...form, id: editando } : o)));
+      // ? EDIT
+      Swal.fire({
+        title: "Registro editado con exito",
+        icon: "success"
+      });
     } else {
       const nuevaOrden = { ...form, id: Date.now() };
+      // ? ADD
+      Swal.fire({
+        title: "Registro agregado con exito",
+        icon: "success"
+      });
       setOrdenes([...ordenes, nuevaOrden]);
     }
     cerrarModal();
   };
 
   const eliminarOrden = (id) => {
-    if (confirm("¿Deseas eliminar esta orden de compra?")) {
-      setOrdenes(ordenes.filter(o => o.id !== id));
-    }
+    // ! DELETE
+    Swal.fire({
+      title: "Estas seguro que desea eliminar este registro?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setOrdenes(ordenes.filter(o => o.id !== id));
+        Swal.fire({
+          title: "Registro eliminado con exito",
+          icon: "success"
+        });
+      }
+    });
   };
 
   const exportarPDF = () => {

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Swal from 'sweetalert2'
+
 
 export default function GiftCards() {
   const [giftCards, setGiftCards] = useState([
@@ -32,6 +34,12 @@ export default function GiftCards() {
       fechaExpiracion,
     };
     setGiftCards([...giftCards, nuevaGiftCard]);
+    // ? ADD
+    Swal.fire({
+      title: "Registro agregado con exito",
+      icon: "success"
+    });
+
     cerrarModal(); // Cerrar el modal después de agregar
   };
 

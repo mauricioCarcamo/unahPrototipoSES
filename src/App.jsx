@@ -18,10 +18,10 @@ import Summary from './pages/Cart/Summary'
 import ShippingMethods from './pages/Cart/ShippingMethods'
 import PaymentMethods from './pages/Cart/PaymentsMethods'
 import UserPaymentMehods from './pages/account/UserPaymentMehods'
-import PasswordChange from './pages/Cart/PasswordChange'
-import SavedAddresses from './pages/Cart/SavedAddresses'
-import OrderHistory from './pages/Cart/OrderHistory'
-import GiftCards from './pages/Cart/GiftCards'
+import PasswordChange from './pages/account/PasswordChange'
+import SavedAddresses from './pages/account/SavedAddresses'
+import OrderHistory from './pages/account/OrderHistory'
+import GiftCards from './pages/account/GiftCards'
 
 import "keen-slider/keen-slider.min.css";
 import UserHome from './pages/UserHome'
@@ -30,6 +30,7 @@ import Inventary from './pages/Logistics/Inventary'
 import Orders from './pages/Logistics/Orders'
 import Users from './pages/admin/Users'
 import Queries from './pages/admin/Queries'
+import About from './pages/admin/About'
 
 
 
@@ -74,6 +75,7 @@ function App() {
               <Route path='clients' element={ <Clients /> } />
               <Route path='users' element={ <Users /> } />
               <Route path='queries' element={ <Queries /> } />
+              <Route path='about' element={ <About /> } ></Route>
             </Route>
 
             <Route path='logistics'>

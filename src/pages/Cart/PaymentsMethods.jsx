@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { CreditCard, Wallet, Landmark } from "lucide-react";
+import Swal from 'sweetalert2'
+
 
 const metodos = [
   {
@@ -35,8 +37,30 @@ export default function PaymentMethods() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Aquí podrías manejar validaciones y enviar los datos
-    alert(`Pago con ${seleccionado} procesado.`);
+    // ? ADD
+    Swal.fire({
+      title: `Pago con ${seleccionado} procesado.`,
+      icon: "success"
+    });
   };
+
+  const handleDelete = (params) => {
+    Swal.fire({
+      title: "Estas seguro que desea eliminar este registro?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Registro eliminado con exito",
+          icon: "success"
+        });
+      }
+    });
+    
+  }
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-10">
@@ -49,11 +73,10 @@ export default function PaymentMethods() {
           {metodos.map((m) => (
             <label
               key={m.id}
-              className={`flex items-center gap-3 border rounded-lg p-4 cursor-pointer transition hover:shadow-sm ${
-                seleccionado === m.id
+              className={`flex items-center gap-3 border rounded-lg p-4 cursor-pointer transition hover:shadow-sm ${seleccionado === m.id
                   ? "border-blue-600 bg-blue-50"
                   : "border-gray-200"
-              }`}
+                }`}
               onClick={() => setSeleccionado(m.id)}
             >
               <input

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { MapPin, Trash2, Plus } from "lucide-react";
+import Swal from 'sweetalert2'
+
 
 export default function SavedAddresses() {
   const [direcciones, setDirecciones] = useState([
@@ -44,10 +46,34 @@ export default function SavedAddresses() {
       pais: "",
     });
     setModalAbierto(false);
+
+    // ? ADD
+    Swal.fire({
+      title: "Registro agregado con exito",
+      icon: "success"
+    });
+
   };
 
   const eliminarDireccion = (id) => {
+      // ! DELETE
+  Swal.fire({
+    title: "Estas seguro que desea eliminar este registro?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Eliminar"
+  }).then((result) => {
     setDirecciones((prev) => prev.filter((d) => d.id !== id));
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Registro eliminado con exito",
+        icon: "success"
+      });
+    }
+  });
+
+
   };
 
   return (

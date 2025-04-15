@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Truck, Store, Clock } from "lucide-react";
+import Swal from 'sweetalert2'
+
 
 const opcionesEnvio = [
   {
@@ -25,6 +27,14 @@ const opcionesEnvio = [
   },
 ];
 
+const handleSave = (params) => {
+        // ? ADD
+        Swal.fire({
+          title: "Pago seleccionado con exito",
+          icon: "success"
+        });
+}
+
 export default function ShippingMethods() {
   const [seleccionado, setSeleccionado] = useState("estandar");
 
@@ -33,6 +43,8 @@ export default function ShippingMethods() {
   };
 
   const envio = opcionesEnvio.find((op) => op.id === seleccionado);
+
+
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-10">
@@ -80,7 +92,7 @@ export default function ShippingMethods() {
             {envio.titulo} (${envio.costo.toFixed(2)})
           </span>
         </p>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition">
+        <button onClick={ handleSave } className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition">
           Continuar con el pago
         </button>
       </div>

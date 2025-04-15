@@ -1,14 +1,20 @@
 /* 
+
+import Swal from 'sweetalert2'
+
+      // ? EDIT
       Swal.fire({
         title: "Registro editado con exito",
         icon: "success"
       });
 
+      // ? ADD
       Swal.fire({
         title: "Registro agregado con exito",
         icon: "success"
       });
 
+  // ! DELETE
   Swal.fire({
       title: "Estas seguro que desea eliminar este registro?",
       icon: "warning",
@@ -17,7 +23,6 @@
       confirmButtonText: "Eliminar"
     }).then((result) => {
       if (result.isConfirmed) {
-        setProductos(productos.filter((p) => p.id !== id));
         Swal.fire({
           title: "Registro eliminado con exito",
           icon: "success"

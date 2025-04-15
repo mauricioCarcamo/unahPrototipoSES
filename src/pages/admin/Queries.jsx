@@ -3,6 +3,8 @@ import { Dialog } from "@headlessui/react";
 import { Pencil, Trash2, Plus, FileDown } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import Swal from 'sweetalert2'
+
 
 const consultasMock = [
   { id: 1, nombreCliente: "Juan Pérez", consulta: "¿Cómo puedo recuperar mi contraseña?", fecha: "2025-04-10" },
@@ -37,16 +39,41 @@ export default function Queries() {
     e.preventDefault();
     if (editando) {
       setConsultas(consultas.map(c => (c.id === editando ? { ...form, id: editando } : c)));
+      Swal.fire({
+        title: "Registro editado con exito",
+        icon: "success"
+      });
     } else {
       const nuevaConsulta = { ...form, id: Date.now() };
       setConsultas([...consultas, nuevaConsulta]);
+      Swal.fire({
+        title: "Registro agregado con exito",
+        icon: "success"
+      });
     }
     cerrarModal();
   };
 
   const eliminarConsulta = (id) => {
+    Swal.fire({
+      title: "Estas seguro que desea eliminar este registro?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setConsultas(consultas.filter(c => c.id !== id));
+        Swal.fire({
+          title: "Registro eliminado con exito",
+          icon: "success"
+        });
+      }
+    });
+
+
+
     if (confirm("¿Deseas eliminar esta consulta?")) {
-      setConsultas(consultas.filter(c => c.id !== id));
     }
   };
 
@@ -168,7 +195,7 @@ export default function Queries() {
                   className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
                 />
               </div>
-              <div>
+              <div className="hidden">
                 <label className="block text-sm font-medium">Fecha</label>
                 <input
                   type="date"

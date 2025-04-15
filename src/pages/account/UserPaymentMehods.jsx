@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { CreditCard, Trash2, Plus } from "lucide-react";
+import Swal from 'sweetalert2'
+
 
 export default function UserPaymentMehods() {
   const [tarjetas, setTarjetas] = useState([
@@ -36,11 +38,34 @@ export default function UserPaymentMehods() {
 
     setTarjetas((prev) => [...prev, tarjetaFormateada]);
     setNuevaTarjeta({ titular: "", numero: "", vencimiento: "" });
+    // ? ADD
+    Swal.fire({
+      title: "Registro agregado con exito",
+      icon: "success"
+    });
     setModalAbierto(false);
   };
 
   const eliminarTarjeta = (id) => {
-    setTarjetas((prev) => prev.filter((t) => t.id !== id));
+      // ! DELETE
+  Swal.fire({
+    title: "Estas seguro que desea eliminar este registro?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Eliminar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      setTarjetas((prev) => prev.filter((t) => t.id !== id));
+      Swal.fire({
+        title: "Registro eliminado con exito",
+        icon: "success"
+      });
+    }
+  });
+
+
+
   };
 
   return (

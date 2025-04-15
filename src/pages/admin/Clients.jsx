@@ -3,6 +3,7 @@ import { Dialog } from "@headlessui/react";
 import { Pencil, Trash2, Plus, FileDown } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import Swal from 'sweetalert2'
 
 const clientesMock = [
   { id: 1, nombre: "Juan Pérez", email: "juan@example.com", telefono: "555-1234" },
@@ -37,17 +38,38 @@ export default function Clients() {
     e.preventDefault();
     if (editando) {
       setClientes(clientes.map(c => (c.id === editando ? { ...form, id: editando } : c)));
+      Swal.fire({
+        title: "Registro editado con exito",
+        icon: "success"
+      });
+
     } else {
       const nuevoCliente = { ...form, id: Date.now() };
       setClientes([...clientes, nuevoCliente]);
+      Swal.fire({
+        title: "Registro agregado con exito",
+        icon: "success"
+      });
     }
     cerrarModal();
   };
 
   const eliminarCliente = (id) => {
-    if (confirm("¿Deseas eliminar este cliente?")) {
-      setClientes(clientes.filter(c => c.id !== id));
-    }
+    Swal.fire({
+      title: "Estas seguro que desea eliminar este registro?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setClientes(clientes.filter(c => c.id !== id));
+        Swal.fire({
+          title: "Registro eliminado con exito",
+          icon: "success"
+        });
+      }
+    });
   };
 
   const exportarPDF = () => {

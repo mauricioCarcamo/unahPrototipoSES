@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2'
+
 
 const carrito = [
   { 
@@ -32,6 +34,14 @@ const impuesto = 0.1; // 10%
 const envio = 20; // fijo
 const subtotal = calcularSubtotal();
 const total = subtotal * (1 + impuesto) + envio;
+
+const confirmOrder = (params) => {
+        // ? EDIT
+        Swal.fire({
+          title: "Compra confirmada con exito",
+          icon: "success"
+        });
+}
 
 export default function Summary() {
   return (
@@ -86,7 +96,7 @@ export default function Summary() {
       </div>
 
       <div className="mt-6 text-center">
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition">
+        <button onClick={ confirmOrder } className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition">
           Confirmar Compra
         </button>
         <p className="mt-4 text-sm text-gray-500">

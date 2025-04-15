@@ -417,6 +417,19 @@ export default function Sidebar() {
                   </div>
                 </NavLink>
               </li>
+              
+              <li>
+                <NavLink
+                  to="admin/about"
+                  className={({ isActive }) =>
+                    `justify-between w-full rounded hover:bg-gray-700 transition flex items-center gap-2 `
+                  }
+                >
+                  <div className="flex gap-2 items-center px-2 py-2">
+                    <span>Acerca del aplicativo</span>
+                  </div>
+                </NavLink>
+              </li>
             </ul>
           )}
         </li>

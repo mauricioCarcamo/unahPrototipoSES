@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Plus, Pencil, Trash2, FileDown } from "lucide-react";
+import Swal from 'sweetalert2'
 
 const inventarioInicial = [
   {
@@ -72,16 +73,40 @@ export default function Inventary() {
     e.preventDefault();
     if (editando) {
       setProductos(productos.map(p => p.id === editando ? { ...form, id: editando } : p));
+            // ? EDIT
+            Swal.fire({
+              title: "Registro editado con exito",
+              icon: "success"
+            });
+
     } else {
       setProductos([...productos, { ...form, id: Date.now() }]);
+            // ? ADD
+            Swal.fire({
+              title: "Registro agregado con exito",
+              icon: "success"
+            });
     }
     cerrarModal();
   };
 
   const eliminarProducto = (id) => {
-    if (confirm("¿Deseas eliminar este producto?")) {
-      setProductos(productos.filter(p => p.id !== id));
-    }
+    Swal.fire({
+      title: "Estas seguro que desea eliminar este registro?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setProductos(productos.filter(p => p.id !== id));
+        Swal.fire({
+          title: "Registro eliminado con exito",
+          icon: "success"
+        });
+      }
+    });
+    
   };
 
   const productosFiltrados = productos.filter(p =>
