@@ -4,19 +4,91 @@ import { Link } from "react-router-dom";
 import "keen-slider/keen-slider.min.css";
 
 const productosPopulares = [
-  { id: 1, nombre: "Zapatillas Urbanas", imagen: "https://acdn-us.mitiendanube.com/stores/001/749/890/products/img-20240429-wa0084-91c85161426187191417144443144787-1024-1024.jpg", precio: 69.99, rating: 4 },
-  { id: 2, nombre: "Reloj Deportivo", imagen: "https://m.media-amazon.com/images/I/619xstmMPCL._AC_SL1100_.jpg", precio: 129.99, rating: 5 },
+  { 
+    id: 1, 
+    nombre: "Aire Acondicionado LG Portatil", 
+    precio: 14995, 
+    coleccion: "portatil", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/fca327231c9fff6026089196874402d0-500x500.webp",
+    rating: 4.5,
+    descripcion: "Los aires acondicionados portátiles de LG con DUAL Inverter Compressor™ brindan temperaturas frías con hasta un 40% más de ahorro de energía. Disfruta de la revolucionaria tecnología Inverter que es tan potente como silenciosa.",
+  },
+  { 
+    id: 2, 
+    nombre: "Aire Acondicionado LG Cassette de 4 Vias", 
+    precio: 95995, 
+    coleccion: "cassette", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/d0402f050f26e01aedb80e52771ba4f8-500x500.webp",
+    rating: 4.5,
+    descripcion: "LG Casete montado en el techo proporciona un ambiente de gran confort y estética, lo que lo convierte en el activo perfecto para su negocio. Las unidades de tipo cassette interiores LG también purifican el aire para ofrecer un ambiente más fresco y saludable.",
+  },
+  { 
+    id: 3, 
+    nombre: "Aire Acondicionado LG Dual Inverter", 
+    precio: 18995, 
+    coleccion: "inverter", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/2837e8cd91dc294d874d42942095e684-500x500.webp",
+    rating: 4.5,
+    descripcion: "Reduce tu consumo de energía y tu factura de electricidad con un enfriamiento más eficiente. Obtén la comodidad de un rápido enfriamiento con el LG DUAL Inverter Compressor™.",
+  },
 ];
 
 const colecciones = [
-  { id: 1, titulo: "Primavera-Verano", imagen: "https://m.media-amazon.com/images/I/619xstmMPCL._AC_SL1100_.jpg" },
-  { id: 2, titulo: "Oficina", imagen: "https://img.freepik.com/foto-gratis/habitacion-vacia-sillas-escritorios_23-2149008873.jpg?semt=ais_hybrid&w=740" },
-  { id: 3, titulo: "Deportes", imagen: "https://www.udep.edu.pe/hoy/wp-content/uploads/sites/49/2023/01/CUERPO-DE-TEXTO-1920X1080-3-min-1.png" },
+  { 
+    id: 1, 
+    nombre: "Aire Acondicionado LG Portatil", 
+    precio: 14995, 
+    coleccion: "portatil", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/fca327231c9fff6026089196874402d0-500x500.webp",
+    rating: 4.5,
+    descripcion: "Los aires acondicionados portátiles de LG con DUAL Inverter Compressor™ brindan temperaturas frías con hasta un 40% más de ahorro de energía. Disfruta de la revolucionaria tecnología Inverter que es tan potente como silenciosa.",
+    titulo: "Portatil", 
+  },
+  { 
+    id: 2, 
+    nombre: "Aire Acondicionado LG Cassette de 4 Vias", 
+    precio: 95995, 
+    coleccion: "cassette", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/d0402f050f26e01aedb80e52771ba4f8-500x500.webp",
+    rating: 4.5,
+    descripcion: "LG Casete montado en el techo proporciona un ambiente de gran confort y estética, lo que lo convierte en el activo perfecto para su negocio. Las unidades de tipo cassette interiores LG también purifican el aire para ofrecer un ambiente más fresco y saludable.",
+    titulo: "Cassette", 
+  },
+  { 
+    id: 3, 
+    nombre: "Aire Acondicionado LG Dual Inverter", 
+    precio: 18995, 
+    coleccion: "inverter", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/2837e8cd91dc294d874d42942095e684-500x500.webp",
+    rating: 4.5,
+    descripcion: "Reduce tu consumo de energía y tu factura de electricidad con un enfriamiento más eficiente. Obtén la comodidad de un rápido enfriamiento con el LG DUAL Inverter Compressor™.",
+    titulo: "Inverter", 
+  },
 ];
 
 const productosRebaja = [
-  { id: 1, nombre: "Chaqueta Invierno", imagen: "https://m.media-amazon.com/images/I/71IXGS39A-L._AC_SL1500_.jpg", precioOriginal: 89.99, precioRebajado: 59.99 },
-  { id: 2, nombre: "Gorra Casual", imagen: "https://static.vecteezy.com/system/resources/previews/008/644/450/non_2x/stylish-brunette-girl-in-gray-cap-casual-street-style-on-winter-day-photo.jpg", precioOriginal: 19.99, precioRebajado: 12.99 },
+  { 
+    id: 1, 
+    nombre: "Aire Acondicionado LG Portatil", 
+    precio: 14995, 
+    coleccion: "portatil", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/fca327231c9fff6026089196874402d0-500x500.webp",
+    rating: 4.5,
+    descripcion: "Los aires acondicionados portátiles de LG con DUAL Inverter Compressor™ brindan temperaturas frías con hasta un 40% más de ahorro de energía. Disfruta de la revolucionaria tecnología Inverter que es tan potente como silenciosa.",
+    titulo: "Portatil",
+    precioOriginal: 19995, precioRebajado: 14995 
+  },
+  { 
+    id: 2, 
+    nombre: "Aire Acondicionado LG Cassette de 4 Vias", 
+    precio: 95995, 
+    coleccion: "cassette", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/d0402f050f26e01aedb80e52771ba4f8-500x500.webp",
+    rating: 4.5,
+    descripcion: "LG Casete montado en el techo proporciona un ambiente de gran confort y estética, lo que lo convierte en el activo perfecto para su negocio. Las unidades de tipo cassette interiores LG también purifican el aire para ofrecer un ambiente más fresco y saludable.",
+    titulo: "Cassette",
+    precioOriginal: 110995, precioRebajado: 95995 
+  },
 ];
 
 function StarRating({ rating }) {

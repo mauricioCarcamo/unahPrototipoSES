@@ -4,21 +4,27 @@ import { Link } from 'react-router-dom'
 
 // Simulación de productos por colección
 const todosLosProductos = [
-  { id: 1, nombre: "Laptop Lenovo", precio: 1100, coleccion: "tecnologia", 
-    imagen: "https://ss628.liverpool.com.mx/xl/1167156114.jpg",
-    descripcion: "Potente laptop con procesador Ryzen 7 y 16GB RAM."},
-  { id: 2, nombre: "Zapatillas Nike", precio: 95, coleccion: "moda", 
-    imagen: "https://acdn-us.mitiendanube.com/stores/001/749/890/products/img-20240429-wa0084-91c85161426187191417144443144787-1024-1024.jpg",
-    descripcion: "Zapatillas cómodas y modernas para correr."},
-  { id: 3, nombre: "Sofá moderno", precio: 499, coleccion: "hogar", 
-    imagen: "https://medias.maisonsdumonde.com/image/upload/q_auto,f_auto/prismic-imgix/c09f0b7a-f339-4a14-a44d-d461cba21fd9_8-min.jpg",
-    descripcion: "Potente laptop con procesador Ryzen 7 y 16GB RAM."},
-  { id: 4, nombre: "Paleta de maquillaje", precio: 25, coleccion: "belleza", 
-    imagen: "https://www.oboticario.com.co/cdn/shop/files/52831-4-MAKE-B-PALETA-DE-SOMBRAS-ROSE-5_4G_1500x.jpg?v=1706707592",
-    descripcion: "Potente laptop con procesador Ryzen 7 y 16GB RAM."},
-  { id: 5, nombre: "Pelota de fútbol", precio: 20, coleccion: "deportes", 
-    imagen: "https://resize.sprintercdn.com/f/1440x1440/products/0392043/adidas-predator_0392043_00_4_2776566031.jpg?w=1440&q=75",
-    descripcion: "Potente laptop con procesador Ryzen 7 y 16GB RAM."},
+  { 
+    id: 1, 
+    nombre: "Aire Acondicionado LG Portatil", 
+    precio: 14995, 
+    coleccion: "portatil", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/fca327231c9fff6026089196874402d0-500x500.webp",
+    descripcion: "Los aires acondicionados portátiles de LG con DUAL Inverter Compressor™ brindan temperaturas frías con hasta un 40% más de ahorro de energía. Disfruta de la revolucionaria tecnología Inverter que es tan potente como silenciosa."},
+  { 
+    id: 2, 
+    nombre: "Aire Acondicionado LG Cassette de 4 Vias", 
+    precio: 95995, 
+    coleccion: "cassette", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/d0402f050f26e01aedb80e52771ba4f8-500x500.webp",
+    descripcion: "LG Casete montado en el techo proporciona un ambiente de gran confort y estética, lo que lo convierte en el activo perfecto para su negocio. Las unidades de tipo cassette interiores LG también purifican el aire para ofrecer un ambiente más fresco y saludable."},
+  { 
+    id: 3, 
+    nombre: "Aire Acondicionado LG Dual Inverter", 
+    precio: 18995, 
+    coleccion: "inverter", 
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/2837e8cd91dc294d874d42942095e684-500x500.webp",
+    descripcion: "Reduce tu consumo de energía y tu factura de electricidad con un enfriamiento más eficiente. Obtén la comodidad de un rápido enfriamiento con el LG DUAL Inverter Compressor™."},
 ];
 
 const nombresColeccion = {

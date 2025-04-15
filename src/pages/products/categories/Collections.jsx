@@ -2,34 +2,22 @@ import { Link } from "react-router-dom";
 
 const colecciones = [
     {
-        id: "tecnologia",
+        id: "portatil",
         nombre: "Portátil   ",
-        descripcion: "Es ideal para quienes buscan confort sin una instalación fija",
-        imagen: "https://www.jetstereo.com/_next/image?url=https%3A%2F%2Fjet-web.s3.us-west-1.amazonaws.com%2Fimages%2Fcache%2Fcatalog%2Fpublic%2F40b54f5d589904d368bde209ce979409-350x350.webp&w=640&q=75",
+        descripcion: "Leva tu aire acondicionado a donde quieras y disfruta no solo de la frescura y enfriamiento rápido, sino también de un espacio sin ruido",
+        imagen: "https://www.muyinteresante.com/wp-content/uploads/sites/5/2024/07/20/669be17ac71f7.png",
     },
     {
-        id: "moda",
-        nombre: "Moda",
-        descripcion: "Ropa y accesorios con estilo.",
-        imagen: "https://audaces.com/wp-content/uploads/2022/11/piramide-mix-productos-moda.jpg",
+        id: "cassette",
+        nombre: "Cassette",
+        descripcion: "Este sistema se instala en el techo y distribuye el aire de manera uniforme en la estancia",
+        imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/d0402f050f26e01aedb80e52771ba4f8-500x500.webp",
     },
     {
-        id: "hogar",
-        nombre: "Hogar",
-        descripcion: "Decoración y muebles para tu hogar.",
-        imagen: "https://media.istockphoto.com/id/1251694108/es/foto/concepto-escandinavo-de-sal%C3%B3n-interior-con-sof%C3%A1-de-dise%C3%B1o-mesa-de-centro-planta-en-olla-flores.jpg?s=612x612&w=0&k=20&c=EQnea-GhajPiwuWpRDL9eGEDEiWMwVBnpNGmUsbw0CI=",
-    },
-    {
-        id: "deportes",
-        nombre: "Deportes",
-        descripcion: "Equipamiento y ropa deportiva.",
-        imagen: "https://www.lavanguardia.com/files/image_449_220/files/fp/uploads/2021/03/26/605ddc0ee10cf.r_d.1324-546-2339.png",
-    },
-    {
-        id: "belleza",
-        nombre: "Belleza",
-        descripcion: "Cosméticos, cuidado personal y más.",
-        imagen: "https://plus.unsplash.com/premium_photo-1661726457110-c43a88d74567?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdG9zJTIwZGUlMjBiZWxsZXphfGVufDB8fDB8fHww",
+        id: "inverter",
+        nombre: "Inverter",
+        descripcion: "Es uno de los más comunes en los hogares. Este tipo de sistema se compone de dos unidades: una interior y otra exterior. La unidad interior se encarga de distribuir el aire frío a la habitación y la exterior se encarga de expulsar el aire caliente al exterior",
+        imagen: "https://haierla.com/medias/1200Wx1200H-Haier-Aire-Acondicionado-2-toneladas-Blanco-HS24HFW13MI-Frente-V1-OPT.jpg?context=bWFzdGVyfGltYWdlc3wyMzM0NHxpbWFnZS9qcGVnfGFEVXpMMmhoTkM4eE1EWXdORFEyTmpjd01ETXhPQzh4TWpBd1YzZ3hNakF3U0Y5SVlXbGxjaTFCYVhKbExVRmpiMjVrYVdOcGIyNWhaRzh0TWkxMGIyNWxiR0ZrWVhNdFFteGhibU52TFVoVE1qUklSbGN4TTAxSkxVWnlaVzUwWlMxV01TMVBVRlF1YW5CbnwzOTE2Y2IxMjc2NjVjNGIyOGVhZWZhZDc1MzE1MjNjMjFlYTkzMjZiYzRiNDI5Mjc4NGY2OTdiMGVkZmMxMTg4",
     },
 ];
 

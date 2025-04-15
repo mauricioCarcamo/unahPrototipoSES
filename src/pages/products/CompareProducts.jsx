@@ -1,95 +1,125 @@
-import Stars from "../../common/Stars";
+import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { Plus, FileDown } from "lucide-react";
 
-const productosComparados = [
-  {
-    id: "1",
-    nombre: "Smartphone Samsung Galaxy S21",
-    imagen: "https://cdn.smart-gsm.com/img/picture/big/samsung-galaxy-s21.jpg",
-    precio: 899,
-    rating: 4.5,
-    specs: {
-      pantalla: "6.2\" AMOLED",
-      camara: "64MP",
-      bateria: "4000mAh",
-      almacenamiento: "128GB",
-    },
-  },
-  {
-    id: "2",
-    nombre: "iPhone 13",
-    imagen: "https://m.media-amazon.com/images/I/61O6NfkdS4L._AC_UF894,1000_QL80_.jpg",
-    precio: 999,
-    rating: 4.7,
-    specs: {
-      pantalla: "6.1\" OLED",
-      camara: "12MP",
-      bateria: "3240mAh",
-      almacenamiento: "128GB",
-    },
-  },
-  {
-    id: "3",
-    nombre: "Xiaomi Mi 11",
-    imagen: "https://www.radioshackla.com/media/catalog/product/4/5/458320000017-2.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700",
-    precio: 749,
-    rating: 4.3,
-    specs: {
-      pantalla: "6.81\" AMOLED",
-      camara: "108MP",
-      bateria: "4600mAh",
-      almacenamiento: "256GB",
-    },
-  },
+const productosMock = [
+  { id: 1, marca: "LG", modelo: "Art Cool", capacidad: "12,000 BTU", tipo: "Split", eficiencia: "A+", precio: "$500", descripcion: "Aire acondicionado de pared, eficiente y silencioso." },
+  { id: 2, marca: "Samsung", modelo: "WindFree", capacidad: "18,000 BTU", tipo: "Split", eficiencia: "A++", precio: "$700", descripcion: "Aire acondicionado con tecnología WindFree." },
+  { id: 3, marca: "Daikin", modelo: "FTKF", capacidad: "24,000 BTU", tipo: "Split", eficiencia: "A++", precio: "$850", descripcion: "Aire acondicionado con control inteligente." },
 ];
 
 export default function CompareProducts() {
-  const specsKeys = ["pantalla", "camara", "bateria", "almacenamiento"];
+  const [productos, setProductos] = useState(productosMock);
+  const [productosSeleccionados, setProductosSeleccionados] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleSeleccion = (producto) => {
+    if (productosSeleccionados.some(p => p.id === producto.id)) {
+      setProductosSeleccionados(productosSeleccionados.filter(p => p.id !== producto.id));
+    } else {
+      setProductosSeleccionados([...productosSeleccionados, producto]);
+    }
+  };
+
+  const exportarPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Comparación de Aires Acondicionados", 14, 16);
+    autoTable(doc, {
+      startY: 20,
+      head: [["Marca", "Modelo", "Capacidad", "Tipo", "Eficiencia", "Precio"]],
+      body: productosSeleccionados.map(p => [p.marca, p.modelo, p.capacidad, p.tipo, p.eficiencia, p.precio]),
+    });
+    doc.save("comparacion_aires.pdf");
+  };
 
   return (
-    <div className="px-6 py-10 overflow-x-auto">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-        Comparar Productos
-      </h2>
+    <div className="max-w-6xl mx-auto px-4 py-10">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+        <h1 className="text-2xl font-bold">Comparación de Aires Acondicionados</h1>
 
-      <div className="grid grid-cols-[200px_repeat(auto-fill,minmax(250px,1fr))] gap-4">
-        {/* Encabezado vertical */}
-        <div className="font-semibold text-gray-700 text-right pr-4 flex flex-col gap-6 items-end">
-          <span>Producto</span>
-          <span>Precio</span>
-          <span>Calificación</span>
-          {specsKeys.map((spec) => (
-            <span key={spec} className="capitalize">
-              {spec}
-            </span>
-          ))}
-        </div>
-
-        {/* Columnas por producto */}
-        {productosComparados.map((producto) => (
-          <div
-            key={producto.id}
-            className="bg-white rounded-lg shadow p-4 flex flex-col gap-6 items-center text-center"
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <button
+            onClick={exportarPDF}
+            className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded flex items-center gap-2"
           >
-            <div>
-              <img
-                src={producto.imagen}
-                alt={producto.nombre}
-                className="h-32 object-contain mx-auto"
-              />
-              <h3 className="font-semibold mt-2">{producto.nombre}</h3>
-            </div>
-            <span className="text-blue-600 font-bold text-lg">
-              ${producto.precio}
-            </span>
-            <Stars valor={producto.rating} />
-            {specsKeys.map((spec) => (
-              <span key={spec} className="text-sm text-gray-600">
-                {producto.specs[spec]}
-              </span>
-            ))}
-          </div>
-        ))}
+            <FileDown className="w-4 h-4" />
+            Exportar PDF
+          </button>
+        </div>
       </div>
+
+      <div className="overflow-x-auto bg-white shadow rounded-lg">
+        <table className="min-w-full table-auto text-sm">
+          <thead className="bg-gray-100 text-gray-600 font-semibold">
+            <tr>
+              <th className="px-4 py-3 text-left">Seleccionar</th>
+              <th className="px-4 py-3 text-left">Marca</th>
+              <th className="px-4 py-3 text-left">Modelo</th>
+              <th className="px-4 py-3 text-left">Capacidad</th>
+              <th className="px-4 py-3 text-left">Tipo</th>
+              <th className="px-4 py-3 text-left">Eficiencia</th>
+              <th className="px-4 py-3 text-left">Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productos.map((producto) => (
+              <tr key={producto.id} className="border-b hover:bg-gray-50">
+                <td className="px-4 py-3">
+                  <input
+                    type="checkbox"
+                    checked={productosSeleccionados.some(p => p.id === producto.id)}
+                    onChange={() => toggleSeleccion(producto)}
+                    className="h-5 w-5"
+                  />
+                </td>
+                <td className="px-4 py-3">{producto.marca}</td>
+                <td className="px-4 py-3">{producto.modelo}</td>
+                <td className="px-4 py-3">{producto.capacidad}</td>
+                <td className="px-4 py-3">{producto.tipo}</td>
+                <td className="px-4 py-3">{producto.eficiencia}</td>
+                <td className="px-4 py-3">{producto.precio}</td>
+              </tr>
+            ))}
+            {productos.length === 0 && (
+              <tr>
+                <td colSpan="7" className="text-center py-6 text-gray-500">
+                  No se encontraron productos.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {productosSeleccionados.length > 0 && (
+        <div className="mt-6 bg-white p-4 rounded-lg shadow">
+          <h2 className="text-xl font-bold mb-4">Productos Seleccionados</h2>
+          <table className="min-w-full table-auto text-sm">
+            <thead className="bg-gray-100 text-gray-600 font-semibold">
+              <tr>
+                <th className="px-4 py-3 text-left">Marca</th>
+                <th className="px-4 py-3 text-left">Modelo</th>
+                <th className="px-4 py-3 text-left">Capacidad</th>
+                <th className="px-4 py-3 text-left">Tipo</th>
+                <th className="px-4 py-3 text-left">Eficiencia</th>
+                <th className="px-4 py-3 text-left">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productosSeleccionados.map((producto) => (
+                <tr key={producto.id} className="border-b hover:bg-gray-50">
+                  <td className="px-4 py-3">{producto.marca}</td>
+                  <td className="px-4 py-3">{producto.modelo}</td>
+                  <td className="px-4 py-3">{producto.capacidad}</td>
+                  <td className="px-4 py-3">{producto.tipo}</td>
+                  <td className="px-4 py-3">{producto.eficiencia}</td>
+                  <td className="px-4 py-3">{producto.precio}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

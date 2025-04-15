@@ -3,29 +3,27 @@ import Stars from "../../../common/Stars";
 
 const productosEnLiquidacion = [
   {
-    id: "6",
-    nombre: "Monitor LG Ultrawide",
-    precioOriginal: 299,
-    precioDescuento: 199,
-    imagen: "https://www.officedepot.com.hn/medias/28654.jpg-1200ftw?context=bWFzdGVyfHJvb3R8NjQ4MTgzfGltYWdlL2pwZWd8YUdGbEwyZzJZaTh4TURjd01UZzJPVGd3T1RZNU5DOHlPRFkxTkM1cWNHZGZNVEl3TUdaMGR3fDY2YTViY2NlOTU2YTNhMWI4OTc3MmZhODBlOTdmMTY2OTI5OWIzODE4NjMyN2MwNWMyZmVlZDZlMDZlMjM5ZTk",
-    rating: 4.3,
+    id: 1,
+    nombre: "Aire Acondicionado LG Portatil",
+    precio: 14995,
+    coleccion: "portatil",
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/fca327231c9fff6026089196874402d0-500x500.webp",
+    rating: 4.5,
+    descripcion: "Los aires acondicionados portátiles de LG con DUAL Inverter Compressor™ brindan temperaturas frías con hasta un 40% más de ahorro de energía. Disfruta de la revolucionaria tecnología Inverter que es tan potente como silenciosa.",
+    titulo: "Portatil",
+    precioOriginal: 19995, precioDescuento: 14995
   },
   {
-    id: "7",
-    nombre: "Teclado mecánico RGB",
-    precioOriginal: 89,
-    precioDescuento: 59,
-    imagen: "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaPE/126336855_01/w=1500,h=1500,fit=pad",
-    rating: 4.0,
-  },
-  {
-    id: "8",
-    nombre: "Mouse inalámbrico Logitech",
-    precioOriginal: 49,
-    precioDescuento: 29,
-    imagen: "https://resource.logitechg.com/w_386,ar_1.0,c_limit,f_auto,q_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/non-braid/hyjal-g502-hero/g502-hero-gallery-2-nb.png?v=1",
-    rating: 3.8,
-  },
+    id: 2,
+    nombre: "Aire Acondicionado LG Cassette de 4 Vias",
+    precio: 95995,
+    coleccion: "cassette",
+    imagen: "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/d0402f050f26e01aedb80e52771ba4f8-500x500.webp",
+    rating: 4.5,
+    descripcion: "LG Casete montado en el techo proporciona un ambiente de gran confort y estética, lo que lo convierte en el activo perfecto para su negocio. Las unidades de tipo cassette interiores LG también purifican el aire para ofrecer un ambiente más fresco y saludable.",
+    titulo: "Cassette",
+    precioOriginal: 110995, precioDescuento: 95995
+  }
 ];
 
 export default function Clearance() {
@@ -45,7 +43,7 @@ export default function Clearance() {
               -{Math.round(
                 ((producto.precioOriginal - producto.precioDescuento) /
                   producto.precioOriginal) *
-                  100
+                100
               )}
               %
             </span>
