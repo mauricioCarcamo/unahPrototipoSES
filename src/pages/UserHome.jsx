@@ -132,7 +132,7 @@ export default function UserHome() {
 
       {/* 🏆 Productos Populares */}
       <section>
-        <h2 className="text-2xl font-bold mb-6">🔥 Productos Populares</h2>
+        <h2 className="text-2xl font-bold mb-6">Productos Populares</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {productosPopulares.map((producto) => (
             <div key={producto.id} className="bg-white rounded-lg shadow hover:shadow-lg transition p-4">
@@ -147,7 +147,7 @@ export default function UserHome() {
 
       {/* 🛍️ Colecciones */}
       <section>
-        <h2 className="text-2xl font-bold mb-6">🛍️ Colecciones</h2>
+        <h2 className="text-2xl font-bold mb-6">Colecciones</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {colecciones.map((col) => (
             <Link
@@ -166,7 +166,7 @@ export default function UserHome() {
 
       {/* 💸 Rebajas */}
       <section>
-        <h2 className="text-2xl font-bold mb-6">💸 Productos en Rebaja</h2>
+        <h2 className="text-2xl font-bold mb-6">Productos en Rebaja</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {productosRebaja.map((p) => (
             <div key={p.id} className="bg-white rounded-lg shadow hover:shadow-lg transition p-4">
